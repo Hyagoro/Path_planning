@@ -33,17 +33,7 @@ Vehicle::~Vehicle() {}
 
 
 void Vehicle::choose_next_state(vector<vector<double>> sensor_fusion, int prev_size) {
-    /*
-    Here you can implement the transition_function code from the Behavior Planning Pseudocode
-    classroom concept. Your goal will be to return the best (lowest cost) trajectory corresponding
-    to the next state.
 
-    INPUT: A predictions map. This is a map of vehicle id keys with predicted
-        vehicle trajectories as values. Trajectories are a vector of Vehicle objects representing
-        the vehicle at the current timestep and one timestep in the future.
-    OUTPUT: The the best (lowest cost) trajectory corresponding to the next ego vehicle state.
-
-    */
     vector<string> states = successor_states();
 
     string best_state;
@@ -206,9 +196,9 @@ void Vehicle::generate_trajectory(const string &state, vector<vector<double>> se
     if (state == "KL") {
         keep_lane_trajectory(state, sensor_fusion, prev_size);
     } else if (state == "LCL" || state == "LCR") {
-        lane_change_trajectory(state, sensor_fusion);
+        lane_change_trajectory(state);
     } else if (state == "PLCL" || state == "PLCR") {
-        prep_lane_change_trajectory(state, sensor_fusion);
+        prep_lane_change_trajectory(state);
     }
 }
 
@@ -244,14 +234,14 @@ void Vehicle::keep_lane_trajectory(string state, vector<vector<double>> sensor_f
     this->state = state;
 }
 
-void Vehicle::prep_lane_change_trajectory(string state, vector<vector<double>> sensor_fusion) {
+void Vehicle::prep_lane_change_trajectory(string state) {
     /*
     Generate a trajectory preparing for a lane change.
     */
     this->state = state;
 }
 
-void Vehicle::lane_change_trajectory(string state, vector<vector<double>> sensor_fusion) {
+void Vehicle::lane_change_trajectory(string state) {
     /*
     Generate a lane change trajectory.
     */
