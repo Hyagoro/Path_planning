@@ -25,7 +25,6 @@ Vehicle::Vehicle(int lane, string state, double ref_velocity) {
     this->lane = lane;
     this->state = state;
     this->ref_velocity = ref_velocity;
-    max_acceleration = -1;
 
 }
 

@@ -71,15 +71,41 @@ the path has processed since last time.
 The first part oh the pipeline is to calculate trajectory points with `getXY` function 30m ahead of the car.
 Next, we pass those coordinates into car space and then fit a `spline` function to get a smoother path.
 
+```cpp
+// create spline
+tk::spline s;
+
+// set(x,y) to the spline
+ s.set_points(x_points, y_points);
+```
+
 As noticed before, we work with sensor fusion. For each vehicle in the map, I determine if there is a car in 
 in front, at the left or at the right of our vehicle by exploiting `vx`, `vy` and `car_s`. 
 
-I use 30m for vehicle in our lane, 20m (front) and (10m) back for vehicle at he right and left.
+```cpp
+double vx = car_details[3];
+double vy = car_details[4];
+double check_speed = sqrt(vx * vx + vy * vy);
+double check_car_s = car_details[5];
+```
+
+I use 30m for vehicle in our lane (for satefy), 20m (front) and (10m) back for vehicle at he right and left. I used smaller 
+values for left and right to avoid being stuck for too long between a border and the middle lane.
 
 A state machine is used in order to decide if the car need to change lane or not.
 The priority is to stay on the actual lane while right lane or left lane contains vehicles.
 
-I also used a cost function to give a priority to each potential new state to make the best choice. 
+States:
+- "KL" - Keep Lane
+- "LCL" / "LCR"- Lane Change Left / Lane Change Right
+- "PLCL" / "PLCR" - Prepare Lane Change Left / Prepare Lane Change Right
+
+I also used a cost function to give a priority to each potential new state to make the best choice. This cost
+function takes in input the state, the content of sensor fusion. 
+
+```cpp
+double Vehicle::calculate_cost(string state, vector<vector<double>> sensor_fusion, int prev_size);
+```
 
 ## Dependencies
 
