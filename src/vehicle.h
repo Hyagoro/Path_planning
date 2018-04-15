@@ -69,10 +69,6 @@ public:
 
     void generate_trajectory(const string &state, vector<vector<double>> sensor_fusion, int prev_size);
 
-//    vector<float> get_kinematics(map<int, vector<Vehicle>> predictions, int lane);
-//
-//    vector<Vehicle> constant_speed_trajectory();
-
     void keep_lane_trajectory(string state, vector<vector<double>> sensor_fusion, int prev_size);
 
     void lane_change_trajectory(string state, vector<vector<double>> sensor_fusion);
@@ -80,16 +76,6 @@ public:
     void prep_lane_change_trajectory(string state, vector<vector<double>> sensor_fusion);
 
     double calculate_cost(string state, vector<vector<double>> sensor_fusion, int prev_size);
-
-//    void increment(int dt);
-//
-//    float position_at(int t);
-//
-//    bool get_vehicle_behind(map<int, vector<Vehicle>> predictions, int lane, Vehicle & rVehicle);
-//
-//    bool get_vehicle_ahead(map<int, vector<Vehicle>> predictions, int lane, Vehicle & rVehicle);
-//
-//    vector<Vehicle> generate_predictions(int horizon=2);
 
 };
 

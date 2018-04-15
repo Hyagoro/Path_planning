@@ -62,12 +62,7 @@ void Vehicle::choose_next_state(vector<vector<double>> sensor_fusion, int prev_s
     }
     std::cout << std::endl;
 
-//    vector<float>::iterator best_cost = min_element(begin(costs), end(costs));
-//    int best_idx = distance(begin(costs), best_cost);
-//    return final_trajectories[best_idx];
     generate_trajectory(best_state, sensor_fusion, prev_size);
-//    return ;
-
 }
 
 
@@ -204,12 +199,10 @@ vector<string> Vehicle::successor_states() {
 
 void Vehicle::generate_trajectory(const string &state, vector<vector<double>> sensor_fusion, int prev_size) {
     /*
-     TODO Given a possible next state, generate the appropriate trajectory to realize the next state.
+      Given a possible next state, generate the appropriate trajectory to realize the next state.
     */
 //    vector<Vehicle> trajectory;
-//    if (state.compare("CS") == 0) {
-//        trajectory = constant_speed_trajectory();
-//    } else
+
     if (state == "KL") {
         keep_lane_trajectory(state, sensor_fusion, prev_size);
     } else if (state == "LCL" || state == "LCR") {
@@ -219,16 +212,6 @@ void Vehicle::generate_trajectory(const string &state, vector<vector<double>> se
     }
 }
 
-//
-//vector<Vehicle> Vehicle::constant_speed_trajectory() {
-//    /*
-//    Generate a constant speed trajectory.
-//    */
-//    float next_pos = position_at(1);
-//    vector<Vehicle> trajectory = {Vehicle(this->lane, this->state, 0),
-//                                  Vehicle(this->lane, this->state, 0)};
-//    return trajectory;
-//}
 
 void Vehicle::keep_lane_trajectory(string state, vector<vector<double>> sensor_fusion, int prev_size) {
     /*
